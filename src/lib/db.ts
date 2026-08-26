@@ -34,20 +34,20 @@ import {
 } from './mock-data';
 
 const STORAGE_KEYS = {
-  PRODUCTS: 'hg_products_v2',
-  CATEGORIES: 'hg_categories_v2',
-  BRANDS: 'hg_brands_v2',
-  ORDERS: 'hg_orders_v2',
-  CUSTOMERS: 'hg_customers_v2',
-  CAMPAIGNS: 'hg_campaigns_v2',
-  DISCOUNTS: 'hg_discounts_v2',
-  REVIEWS: 'hg_reviews_v2',
-  HERO: 'hg_hero_v2',
-  CMS_SECTIONS: 'hg_cms_sections_v2',
-  ABANDONED_CARTS: 'hg_abandoned_carts_v2',
-  AUDIT_LOGS: 'hg_audit_logs_v2',
-  CURRENT_USER_ID: 'hg_current_user_id_v2',
-  ADMIN_ROLE: 'hg_admin_role_v2',
+  PRODUCTS: 'hg_products_v3',
+  CATEGORIES: 'hg_categories_v3',
+  BRANDS: 'hg_brands_v3',
+  ORDERS: 'hg_orders_v3',
+  CUSTOMERS: 'hg_customers_v3',
+  CAMPAIGNS: 'hg_campaigns_v3',
+  DISCOUNTS: 'hg_discounts_v3',
+  REVIEWS: 'hg_reviews_v3',
+  HERO: 'hg_hero_v3',
+  CMS_SECTIONS: 'hg_cms_sections_v3',
+  ABANDONED_CARTS: 'hg_abandoned_carts_v3',
+  AUDIT_LOGS: 'hg_audit_logs_v3',
+  CURRENT_USER_ID: 'hg_current_user_id_v3',
+  ADMIN_ROLE: 'hg_admin_role_v3',
 };
 
 // Helper for localStorage with SSR fallback

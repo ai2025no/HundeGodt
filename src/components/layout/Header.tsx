@@ -48,11 +48,12 @@ export default function Header() {
 
   const navLinks = [
     { label: 'Alle Godbiter & Tygg', href: '/produkter' },
-    { label: 'Tørket Rent Kjøtt', href: '/produkter?kategori=torket-kjott' },
+    { label: 'Tørket Kjøtt', href: '/produkter?kategori=torket-kjott' },
     { label: 'Treningsbiter', href: '/produkter?kategori=trening-og-belonning' },
-    { label: 'Tyggebein & Kos', href: '/produkter?kategori=tyggebein-og-kos' },
+    { label: 'Tyggebein', href: '/produkter?kategori=tyggebein-og-kos' },
     { label: 'Gaveesker', href: '/produkter?kategori=gaveesker-og-mix' },
-    { label: 'Godbitguide & Fôrråd', href: '/guider' },
+    { label: 'Godbit-Veiviser 🪄', href: '/veiviser' },
+    { label: 'Guider & Fôrråd', href: '/guider' },
   ];
 
   return (

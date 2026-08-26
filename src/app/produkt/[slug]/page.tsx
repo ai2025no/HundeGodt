@@ -30,14 +30,28 @@ import { useDogStore } from '@/store/useDogStore';
 
 export default function ProductDetailPage() {
   const params = useParams();
-  const slug = params.slug as string;
+  const slug = (params?.slug as string) || '';
 
-  const [product, setProduct] = useState<Product | null>(null);
-  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(null);
+  const [product, setProduct] = useState<Product | null>(() => {
+    if (slug) {
+      return db.getProductBySlug(slug) || null;
+    }
+    return null;
+  });
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(() => {
+    if (slug) {
+      const p = db.getProductBySlug(slug);
+      return p?.variants?.[0] || null;
+    }
+    return null;
+  });
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const [bundleProduct, setBundleProduct] = useState<Product | null>(null);
+  const [reviews, setReviews] = useState<Review[]>(() => db.getReviews());
+  const [bundleProduct, setBundleProduct] = useState<Product | null>(() => {
+    const allProds = db.getProducts();
+    return allProds.find((p) => p.slug !== slug) || allProds[0] || null;
+  });
   const [includeBundle, setIncludeBundle] = useState(true);
 
   // Feeding calculator state
@@ -60,23 +74,28 @@ export default function ProductDetailPage() {
     const found = db.getProductBySlug(slug);
     if (found) {
       setProduct(found);
-      setSelectedVariant(found.variants[0] || null);
+      setSelectedVariant(found.variants?.[0] || null);
 
-      // Find bundle complement
       const allProds = db.getProducts();
-      const complement = allProds.find((p) => p.id !== found.id && p.categorySlug === 'godbiter') || allProds[1];
+      const complement = allProds.find((p) => p.id !== found.id) || allProds[0] || null;
       setBundleProduct(complement);
     }
     setReviews(db.getReviews());
   }, [slug]);
 
   if (!product) {
-    return (
-      <div className="py-24 text-center space-y-4">
-        <div className="w-8 h-8 border-4 border-midnight-ink border-t-transparent rounded-full animate-spin mx-auto" />
-        <p className="text-stone-mute font-sans text-sm">Laster produkt...</p>
-      </div>
-    );
+    const fallback = db.getProductBySlug(slug);
+    if (!fallback) {
+      return (
+        <div className="py-24 text-center space-y-4">
+          <h2 className="font-display text-2xl font-bold text-midnight-ink">Fant ikke produktet</h2>
+          <p className="text-stone-mute font-sans text-sm">Produktet du leter etter finnes ikke eller er utgått.</p>
+          <Link href="/produkter" className="btn-finn-primary inline-flex">
+            <span>Tilbake til butikken</span>
+          </Link>
+        </div>
+      );
+    }
   }
 
   const isFavorited = isInWishlist(product.id);

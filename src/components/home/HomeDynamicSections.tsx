@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { Product, Category, Brand } from '@/types';
 import ProductCard from '@/components/products/ProductCard';
+import TreatWizard from '@/components/wizard/TreatWizard';
 
 interface HomeDynamicSectionsProps {
   products: Product[];
@@ -27,7 +28,7 @@ export default function HomeDynamicSections({
   brands,
 }: HomeDynamicSectionsProps) {
   const bestsellers = products.filter((p) => p.isBestseller).slice(0, 6);
-  const puppyProducts = products.filter((p) => p.tags.includes('Valp') || p.categorySlug === 'valp').slice(0, 3);
+  const puppyProducts = products.filter((p) => p.tags.includes('Valp') || p.categorySlug === 'valpegodbiter').slice(0, 3);
 
   return (
     <div className="w-full flex flex-col">
@@ -55,7 +56,7 @@ export default function HomeDynamicSections({
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
               <span className="text-xs font-bold text-ember-orange uppercase tracking-widest font-mono block mb-1">
-                Utforsk Utvalget
+                Utforsk Godbitene
               </span>
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-ink">
                 Kategorier for enhver hund
@@ -127,6 +128,25 @@ export default function HomeDynamicSections({
               <ProductCard key={prod.id} product={prod} />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* 4. GODBIT-VEIVISER INTERACTIVE SECTION (Full-bleed Blush/Sky Wash) */}
+      <section className="w-full bg-sky-powder/35 py-16 sm:py-24 border-y border-ash-border">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <span className="text-xs font-bold text-ember-orange uppercase tracking-widest font-mono block">
+              Interaktiv Godbit-Veiviser 🪄
+            </span>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-midnight-ink">
+              Usikker på hva du skal velge?
+            </h2>
+            <p className="font-sans text-sm sm:text-base text-cocoa-bean/80">
+              Svar på 3 raske spørsmål, så finner vi godbitene som passer hundens alder, størrelse og favorittsmak.
+            </p>
+          </div>
+
+          <TreatWizard />
         </div>
       </section>
 
