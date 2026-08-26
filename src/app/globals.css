@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Finn Design System Tokens */
+  --color-midnight-ink: #161345;
+  --color-cocoa-bean: #321004;
+  --color-ember-orange: #ff7f00;
+  --color-blush-petal: #ffcfdb;
+  --color-sky-powder: #d7ecff;
+  --color-mint-tide: #60c4bf;
+  --color-cloud-white: #ffffff;
+  --color-fog-gray: #f9f9f9;
+  --color-ash-border: #ebebeb;
+  --color-stone-mute: #999999;
+  --color-check-green: #3aaf3a;
+
+  /* Typography */
+  --font-larsseit: 'Larsseit', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-athletics: 'Athletics', 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-monosten: 'Monosten', 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Spacing */
+  --spacing-unit: 4px;
+  --page-max-width: 1280px;
+  --section-gap: 80px;
+  --card-padding: 24px;
+  --element-gap: 15px;
+
+  /* Radii */
+  --radius-cards: 20px;
+  --radius-pills: 60px;
+  --radius-inputs: 60px;
+  --radius-buttons: 60px;
+  --radius-logobadge: 9999px;
+
+  /* Surfaces */
+  --surface-cloud-white: #ffffff;
+  --surface-fog-gray: #f9f9f9;
+  --surface-blush-petal: #ffcfdb;
+  --surface-sky-powder: #d7ecff;
+  --surface-mint-tide: #60c4bf;
+  --surface-midnight-ink: #161345;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-cloud-white);
+    color: var(--color-cocoa-bean);
+    font-family: var(--font-larsseit);
+    letter-spacing: 0.02em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-cocoa-bean);
+    font-family: var(--font-athletics);
+    font-weight: 700;
+  }
+}
+
+/* Custom Finn Component Utilities */
+@layer components {
+  /* Pill CTA Button (Filled) */
+  .btn-finn-primary {
+    background-color: #161345;
+    color: #ffffff;
+    border-radius: 60px;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid transparent;
+  }
+  .btn-finn-primary:hover {
+    background-color: #231f63;
+  }
+
+  /* Pill Outline Button */
+  .btn-finn-outline {
+    background-color: transparent;
+    color: #161345;
+    border: 1.5px solid #161345;
+    border-radius: 60px;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease-in-out;
+  }
+  .btn-finn-outline:hover {
+    background-color: rgba(22, 19, 69, 0.06);
+  }
+
+  /* Pill Ghost Button */
+  .btn-finn-ghost {
+    background-color: transparent;
+    color: #161345;
+    border-radius: 60px;
+    padding: 10px 18px;
+    font-size: 15px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease-in-out;
+  }
+  .btn-finn-ghost:hover {
+    background-color: rgba(22, 19, 69, 0.05);
+  }
+
+  /* Finn Card */
+  .card-finn {
+    background-color: #f9f9f9;
+    border-radius: 20px;
+    padding: 24px;
+    border: none;
+    box-shadow: none;
+  }
+
+  /* Finn Input */
+  .input-finn {
+    background-color: #ffffff;
+    border: 1px solid #ebebeb;
+    border-radius: 60px;
+    padding: 12px 24px;
+    color: #321004;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .input-finn:focus {
+    border-color: #161345;
+  }
+}
+
+/* Custom Scrollbar & Micro-transitions */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #f9f9f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #d7ecff;
+  border-radius: 60px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #161345;
+}
