@@ -84,18 +84,15 @@ export default function ProductDetailPage() {
   }, [slug]);
 
   if (!product) {
-    const fallback = db.getProductBySlug(slug);
-    if (!fallback) {
-      return (
-        <div className="py-24 text-center space-y-4">
-          <h2 className="font-display text-2xl font-bold text-midnight-ink">Fant ikke produktet</h2>
-          <p className="text-stone-mute font-sans text-sm">Produktet du leter etter finnes ikke eller er utgått.</p>
-          <Link href="/produkter" className="btn-finn-primary inline-flex">
-            <span>Tilbake til butikken</span>
-          </Link>
-        </div>
-      );
-    }
+    return (
+      <div className="py-24 text-center space-y-4">
+        <h2 className="font-display text-2xl font-bold text-midnight-ink">Fant ikke produktet</h2>
+        <p className="text-stone-mute font-sans text-sm">Produktet du leter etter finnes ikke eller er utgått.</p>
+        <Link href="/produkter" className="btn-finn-primary inline-flex">
+          <span>Tilbake til butikken</span>
+        </Link>
+      </div>
+    );
   }
 
   const isFavorited = isInWishlist(product.id);

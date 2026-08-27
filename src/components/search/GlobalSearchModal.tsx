@@ -44,8 +44,10 @@ export default function GlobalSearchModal() {
 
   const normalizedQuery = query.toLowerCase().trim();
   const correctedQuery =
-    normalizedQuery === 'hund selle' ? 'hundesele' :
-    normalizedQuery === 'valpe for' ? 'valpefôr' :
+    normalizedQuery === 'okse lever' ? 'okselever' :
+    normalizedQuery === 'hjorte gevir' ? 'hjortegevir' :
+    normalizedQuery === 'kanin orer' ? 'kaninører' :
+    normalizedQuery === 'valpe biter' ? 'valpegodbiter' :
     normalizedQuery;
 
   const results = products.filter((p) => {
@@ -78,7 +80,7 @@ export default function GlobalSearchModal() {
           <input
             type="text"
             autoFocus
-            placeholder="Søk etter fôr, godbiter, seler, merker..."
+            placeholder="Søk etter tørket kjøtt, treningsbiter, tyggebein, smaker..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="flex-1 bg-transparent text-sm sm:text-base text-cocoa-bean placeholder:text-stone-mute outline-none font-sans"
@@ -112,11 +114,11 @@ export default function GlobalSearchModal() {
               {results.length === 0 ? (
                 <div className="py-8 text-center space-y-2">
                   <p className="font-display font-bold text-base text-cocoa-bean">Ingen treff for «{query}»</p>
-                  <p className="text-xs text-stone-mute">Prøv å søke på «okselever», «sele», eller «valpefôr».</p>
+                  <p className="text-xs text-stone-mute">Prøv å søke på «okselever», «elg», «hjortegevir» eller «lam».</p>
                 </div>
               ) : (
                 <div className="space-y-2">
-                  {results.slice(0, 5).map((p) => (
+                  {results.slice(0, 6).map((p) => (
                     <button
                       key={p.id}
                       type="button"
@@ -126,7 +128,7 @@ export default function GlobalSearchModal() {
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-[12px] bg-cloud-white overflow-hidden relative shrink-0">
                           <Image
-                            src={p.images[0]?.url}
+                            src={p.images[0]?.url || 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=100&h=100&q=80'}
                             alt={p.name}
                             fill
                             className="object-contain p-1"
@@ -158,7 +160,7 @@ export default function GlobalSearchModal() {
                 <span>Populære søk akkurat nå</span>
               </div>
               <div className="flex flex-wrap gap-2">
-                {['Tørket Okselever', 'Y-Sele', 'Valpefôr', 'Ortopedisk Seng', 'Kornfritt'].map((term) => (
+                {['Tørket Okselever', 'Elg & Blåbær', 'Hjortegevir', 'Valpegodbiter', 'Kaninører', 'Villaks', 'Gull-Boks'].map((term) => (
                   <button
                     key={term}
                     type="button"

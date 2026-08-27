@@ -18,28 +18,28 @@ import { useDogStore } from '@/store/useDogStore';
 
 const GUIDES_DATA = [
   {
-    id: 'g-valp',
-    title: 'Komplett guide: Den første tiden med valp i hus',
-    readTime: '6 min lesetid',
-    category: 'Valpestart',
-    snippet: 'Alt du trenger å vite om fôringsrutiner, sosialisering, tannkløe og hvordan du unngår vanlige nybegynnerfeil.',
-    imageUrl: 'https://images.unsplash.com/photo-1591160690555-5debfba289f0?auto=format&fit=crop&w=600&h=400&q=80',
-  },
-  {
-    id: 'g-ernaring',
-    title: 'Kornfritt eller ikke? Hva sier veterinærene om hundefôr?',
-    readTime: '8 min lesetid',
-    category: 'Ernæring & Helse',
-    snippet: 'En grundig gjennomgang av råfôring, tørrfôr med høyt kjøttinnhold og hvordan du oppdager fôrallergier tidlig.',
+    id: 'g-godbiter-rase',
+    title: 'Den ultimate godbitguiden: Velg riktig belønning til din hund',
+    readTime: '5 min lesetid',
+    category: 'Godbitguide',
+    snippet: 'Forskjellen på belønningsbiter, tørket kjøtt og langvarig tygg. Hva gir raskest innkalling og best motivasjon?',
     imageUrl: 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=600&h=400&q=80',
   },
   {
-    id: 'g-tur',
-    title: 'Hvordan velge riktig Y-sele for din hunds anatomi',
-    readTime: '5 min lesetid',
-    category: 'Tur & Utstyr',
-    snippet: 'Hvorfor ergonomisk passform forhindrer rygg- og nakkeskader, og hvordan du måler hals- og brystomkrets nøyaktig.',
-    imageUrl: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&h=400&q=80',
+    id: 'g-sensitive-mager',
+    title: 'Hypoallergene godbiter: Slik unngår du kløe og urolig mage',
+    readTime: '6 min lesetid',
+    category: 'Mage & Allergi',
+    snippet: 'Hvorfor single-protein som lam, elg og and fungerer best for hunder med kylling- eller storfesensitivitet.',
+    imageUrl: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=600&h=400&q=80',
+  },
+  {
+    id: 'g-tyggeglede',
+    title: 'Hjortegevir vs. Tyggebein: Hvilket tygg passer hundens kjeve?',
+    readTime: '4 min lesetid',
+    category: 'Tygg & Tannhelse',
+    snippet: 'Holdbarhet, mekanisk tannrens og sikkerhet. Hva er tryggest for valpetenner vs. voksne kraftige kjever.',
+    imageUrl: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&h=400&q=80',
   },
 ];
 
@@ -50,7 +50,7 @@ export default function GuidesPage() {
 
   const factorMultiplier = activityFactor === 'normal' ? 14 : activityFactor === 'high' ? 18 : 23;
   const recommendedGrams = Math.round(weightKg * factorMultiplier);
-  const bagDuration12kg = Math.round(12000 / (recommendedGrams || 1));
+  const maxTreatGrams = Math.round(recommendedGrams * 0.10); // 10% rule
 
   return (
     <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16">
@@ -59,26 +59,26 @@ export default function GuidesPage() {
       <div className="text-center max-w-2xl mx-auto space-y-3">
         <div className="inline-flex items-center gap-1.5 bg-blush-petal px-4 py-1.5 rounded-pill text-xs font-semibold text-cocoa-bean">
           <BookOpen className="w-3.5 h-3.5 text-midnight-ink" />
-          <span>Hundegodt Kunnskapsbase</span>
+          <span>Hundegodt Kunnskapsbase & Veiledning</span>
         </div>
         <h1 className="font-display text-4xl sm:text-5xl font-bold text-midnight-ink">
-          Guider, Tips & Fôringsveiledning
+          Godbitguide & Fôringsveiledning
         </h1>
         <p className="text-xs sm:text-sm text-stone-mute leading-relaxed font-sans">
-          Skrevet av norske hundeeksperter og ernæringsfysiologer for å gi hunden din et langt, sunt og aktivt liv.
+          Skrevet av norske hundeeksperter for å gi hunden din ren energi, god motivasjon og en sunn, glad mage.
         </p>
       </div>
 
-      {/* 2. INTERACTIVE STANDALONE FEEDING CALCULATOR */}
-      <section className="bg-sky-powder/40 rounded-[24px] p-6 sm:p-10 space-y-8">
+      {/* 2. INTERACTIVE STANDALONE FEEDING & TREAT CALCULATOR */}
+      <section className="bg-sky-powder/40 rounded-[24px] p-6 sm:p-10 space-y-8 border border-sky-powder/60">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-ash-border pb-6">
           <div>
             <div className="flex items-center gap-2 text-xs font-bold text-midnight-ink uppercase tracking-wider mb-1 font-mono">
               <Calculator className="w-4 h-4 text-ember-orange" />
-              <span>Norsk Fôrkalkulator</span>
+              <span>Norsk Fôr- & Godbitkalkulator</span>
             </div>
             <h2 className="font-display text-2xl sm:text-3xl font-bold text-midnight-ink">
-              Beregn hundens daglige fôrbehov
+              Beregn hundens daglige porsjon og godbit-kvote
             </h2>
             {activeDog && (
               <p className="text-xs text-midnight-ink font-semibold mt-1">
@@ -86,6 +86,11 @@ export default function GuidesPage() {
               </p>
             )}
           </div>
+
+          <Link href="/veiviser" className="btn-finn-ghost self-start sm:self-auto text-xs">
+            <Sparkles className="w-3.5 h-3.5 text-ember-orange" />
+            <span>Prøv Godbit-Veiviseren 🪄</span>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -93,7 +98,7 @@ export default function GuidesPage() {
           <div className="space-y-6">
             <div className="space-y-2">
               <div className="flex justify-between items-center text-xs font-bold text-cocoa-bean">
-                <span>Hundens Nåværende Vekt:</span>
+                <span>Hundens Vekt:</span>
                 <span className="font-display text-2xl text-midnight-ink">{weightKg} kg</span>
               </div>
               <input
@@ -137,33 +142,32 @@ export default function GuidesPage() {
             </div>
           </div>
 
-          <div className="bg-cloud-white rounded-[20px] p-6 sm:p-8 space-y-4 text-center">
-            <span className="text-xs font-bold text-stone-mute uppercase tracking-wider block font-mono">
-              Anbefalt dagsmengde:
-            </span>
-            <strong className="text-4xl sm:text-5xl font-display font-bold text-midnight-ink block">
-              {recommendedGrams} g / dag
-            </strong>
-            <p className="text-xs text-stone-mute max-w-xs mx-auto">
-              Fordeles på 2 måltider (f.eks. {Math.round(recommendedGrams / 2)} g morgen og {Math.round(recommendedGrams / 2)} g kveld).
-            </p>
+          <div className="bg-cloud-white rounded-[20px] p-6 sm:p-8 space-y-4 text-center border border-ash-border">
+            <div className="space-y-1">
+              <span className="text-xs font-bold text-stone-mute uppercase tracking-wider block font-mono">
+                Anbefalt dagsmengde:
+              </span>
+              <strong className="text-4xl sm:text-5xl font-display font-bold text-midnight-ink block">
+                {recommendedGrams} g / dag
+              </strong>
+            </div>
 
-            <div className="pt-4 border-t border-ash-border flex justify-around text-xs text-cocoa-bean">
-              <div>
-                <span className="text-stone-mute block">2 kg pose varer:</span>
-                <strong className="font-bold">{Math.round(2000 / recommendedGrams)} dager</strong>
+            {/* 10% Treat Guideline Box */}
+            <div className="bg-mint-tide/20 rounded-[16px] p-4 text-left border border-mint-tide/40 space-y-1">
+              <div className="flex items-center gap-2">
+                <Bone className="w-4 h-4 text-midnight-ink" />
+                <span className="text-xs font-bold text-midnight-ink font-mono uppercase">Maks 10% Godbit-kvote:</span>
               </div>
-              <div>
-                <span className="text-stone-mute block">12 kg sekk varer:</span>
-                <strong className="font-bold">{bagDuration12kg} dager</strong>
-              </div>
+              <p className="text-xs text-cocoa-bean font-medium">
+                Inntil <strong>{maxTreatGrams} gram</strong> rene tørkede godbiter eller treningsbiter per dag for å holde optimal vekt.
+              </p>
             </div>
 
             <Link
-              href="/produkter?kategori=mat"
+              href="/produkter"
               className="btn-finn-primary w-full !py-3 text-xs mt-2"
             >
-              <span>Finn passende fôr i butikken</span>
+              <span>Utforsk 100% naturlige godbiter</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -204,7 +208,7 @@ export default function GuidesPage() {
                 </div>
 
                 <div className="pt-4 flex items-center gap-1 text-xs font-semibold text-midnight-ink group-hover:underline">
-                  <span>Les hele artikkelen</span>
+                  <span>Les hele guiden</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </div>
               </div>
