@@ -1,0 +1,75 @@
+name: Apply premium Hundegodt storefront
+
+on:
+  push:
+    branches:
+      - design/premium-hundegodt-storefront
+    paths:
+      - '.github/bootstrap/**'
+      - '.github/workflows/apply-premium-storefront.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply-and-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out redesign branch
+        uses: actions/checkout@v4
+        with:
+          ref: design/premium-hundegodt-storefront
+          fetch-depth: 0
+
+      - name: Confirm complete design package
+        id: package
+        shell: bash
+        run: |
+          if [[ -f .github/bootstrap/part-13 ]]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Restore premium storefront files
+        if: steps.package.outputs.ready == 'true'
+        shell: bash
+        run: |
+          cp package.json /tmp/hundegodt-package.json
+          cat .github/bootstrap/part-* | base64 --decode > /tmp/hundegodt-premium-patch.tgz
+          tar -xzf /tmp/hundegodt-premium-patch.tgz -C .
+          cp /tmp/hundegodt-package.json package.json
+          rm -rf .github/bootstrap
+
+      - name: Use Node.js 20
+        if: steps.package.outputs.ready == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.package.outputs.ready == 'true'
+        run: npm ci
+
+      - name: Run storefront contract test
+        if: steps.package.outputs.ready == 'true'
+        run: node tests/storefront-contract.test.mjs
+
+      - name: Build production application
+        if: steps.package.outputs.ready == 'true'
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
+        run: npm run build
+
+      - name: Commit verified redesign
+        if: steps.package.outputs.ready == 'true'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat: apply premium responsive Hundegodt storefront"
+          git push origin HEAD:design/premium-hundegodt-storefront
